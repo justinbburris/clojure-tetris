@@ -61,3 +61,16 @@
 							[0 1 0]])
 							
 (def figures [stick square tblock sblock zblock lblock jblock])
+
+; Okay so we're defining create-vector
+; Not sure what comp is...
+; vec is the vector we're creating
+; repeat is the (atom?) we're repeating
+(def create-vector (comp vec repeat))
+
+; I believe this creates the glass with all empty cells
+(def create-glass[]
+	(create-vector glass-height
+								(create-vector glass-width empty-cell)
+	)
+)
