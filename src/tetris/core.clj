@@ -75,21 +75,41 @@
 	)
 )
 
-; Okay what?
+; Grabs a cell at a specified x y location
+; it seems we're passing an x & y coordinate
+; We then use get-in(?) to extract what is in the figure array at that location
 (defn pick-cell [figure x y]
 	(get-in figure [y x])
 )
 
 ; This apparently acts like map but for a matrix
+; I assume that we're iterating over rows (y) and then each column (x) for a row
+; It looks like we then apply a function passed in via func to the element (e1) at a particular x y coordinate
+; I assume vect is the column at the y location
 (defn mapmatrix [func matrix]
 	(into [] (map-indexed (fn[y vect]
 													(into [] (map-indexed (fn[x e1]
 																									(func e1 x y))
 																								vect)))
 												matrix)))
-												
+
+; Rotation of a tetrimino
+; A figure (from figures I suppose) is passed into the function
+; Then the size of the matrix for the figure is calculated
+; We then use the mapmatrix function to apply the pick-cell function to fig, where upon we do some 
+; modulus operation to the size?
+; Not sure what #() is
 (defn rotate-figure [fig]
 	(let [fsize (count fig)]
 		(mapmatrix #(pick-cell fig (- fsize %3 1) %2) fig)))
 		
 
+(defn apply-fig [glass fig [figx figy]]
+	(let [fsize (count fig)]
+		(mapmatrix (fn[e1 gx gy]
+								(if (and
+											(<= figx gx (+ figx fsize -1))
+											(<= figy gy (+ figy fsize -1)))
+										(+ e1 (pick-cell fig (- gx figx)(- gy figy)))
+										e1))
+		glass)))
