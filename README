@@ -1,7 +1,5 @@
 # tetris
-
-FIXME: write description
-
+A tetris implementation written in clojure
 ## Usage
 
 FIXME: write
