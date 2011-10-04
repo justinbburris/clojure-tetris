@@ -102,8 +102,11 @@
 (defn rotate-figure [fig]
 	(let [fsize (count fig)]
 		(mapmatrix #(pick-cell fig (- fsize %3 1) %2) fig)))
-		
 
+; I finally downloaded and installed a clojure command line utility
+; Takes a figure and applies it to the current glass
+; fsize is the size(rows) of the fig
+;
 (defn apply-fig [glass fig [figx figy]]
 	(let [fsize (count fig)]
 		(mapmatrix (fn[e1 gx gy]
@@ -113,3 +116,15 @@
 										(+ e1 (pick-cell fig (- gx figx)(- gy figy)))
 										e1))
 		glass)))
+
+
+(defn destroy-filled [glass]
+  (let [clear-glass
+        (remove (fn[vect]
+                  (not-any? #(= % empty-cell) vect)) glass)
+        destroyed (- glass-height (count clear-glass))]
+    [(into (vec (repeat
+                  destroyed
+                  (create-vector gladd-width empty-cell)))
+            (vec clear-glass)) destroyed]))
+
