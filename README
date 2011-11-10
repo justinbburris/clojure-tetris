@@ -1,11 +1,4 @@
-# tetris
 A tetris implementation written in clojure
-## Usage
+Using http://codethat.wordpress.com/2011/09/10/writing-tetris-in-clojure/ as a guide to see how a clojure project is created.
 
-FIXME: write
-
-## License
-
-Copyright (C) 2011 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+All of this code is from codethat. I am simply providing my comments on what I think is going on.
